@@ -1,0 +1,9 @@
+key term followed by properties
+
+user,name
+admin,name,password
+item,name,price,quantity,description
+household,name,price,quantity,description,room,size,season
+book,name,price,quantity,description,author,genre,isbn
+toy,name,price,quantity,description,brand,age
+electronic,name,price,quantity,description,manufacturer,category
