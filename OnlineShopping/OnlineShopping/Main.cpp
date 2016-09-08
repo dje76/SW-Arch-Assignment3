@@ -24,8 +24,16 @@ int main() {
 	while (strcmp(input, "exit") != 0) {
 		cout << endl << "Please enter your pre-registered username: ";
 		cin.getline(input, sizeof(input));
+
 		cout << db.search_user(input) << endl; // It works!
 		
+		if (db.search_user(input) == 1) {
+			User user(input);
+			user.Login();
+		}
+		else {
+			cout << "Invalid Account" << endl << endl;
+		}
 		// TODO:
 		// If the user exists, call user methods.
 
