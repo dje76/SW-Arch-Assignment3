@@ -14,7 +14,7 @@ using namespace std;
 
 int main() {
 	// Generate the database from the text file.
-	Database db("database.txt");
+	Database db("files/database.txt");
 
 	char input[100];
 
