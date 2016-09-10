@@ -2,8 +2,8 @@
 
 /*
 Database consisting of two tables: Users and Items.
-Requires a database.txt file to pull data from.
-Will overwrite the text file upon completion to update information.
+Requires text files to pull data from.
+Will overwrite the text files upon completion to update information.
 */
 
 class Database {
