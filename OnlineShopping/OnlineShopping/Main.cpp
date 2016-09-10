@@ -27,7 +27,7 @@ int main() {
 
 		cout << db.search_user(input) << endl; // It works!
 		
-		if (db.search_user(input) == 1) {
+		if (db.search_user(input)) {
 			User user(input);
 			user.Login();
 		}

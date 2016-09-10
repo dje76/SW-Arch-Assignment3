@@ -24,7 +24,7 @@ public:
 	Toy generate_toy(vector<string> values);
 	Electronic generate_electronic(vector<string> values);
 
-	int search_user(string value);
+	bool search_user(string value);
 };
 
 Database::Database(string filename) {
@@ -101,11 +101,11 @@ Electronic Database::generate_electronic(vector<string> values) {
 }
 
 
-int Database::search_user(string value) {
+bool Database::search_user(string value) {
 	for (auto it = user_table.begin(); it != user_table.end(); it++) {
 		if (it->name == value) {
-			return 1; // User exists.
+			return true; // User exists.
 		}
 	}
-	return -1; // User does not exist.
+	return false; // User does not exist.
 }
