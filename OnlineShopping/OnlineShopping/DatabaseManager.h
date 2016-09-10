@@ -8,12 +8,12 @@ Will overwrite the text file upon completion to update information.
 
 class Database {
 public:
-	vector <User> user_table;
+	vector <string> user_table;
 	vector <Item> item_table;
 
 	Database(string filename);
 	vector<string> tokenize(const string &line);
-	void insert_user(User user);
+	void insert_user(string user);
 	void insert_item(Item item);
 
 	User generate_user(vector <string> values);
@@ -27,8 +27,8 @@ public:
 	bool search_user(string value);
 };
 
-Database::Database(string filename) {
-	ifstream infile(filename);
+Database::Database(string directory) {
+	ifstream infile(directory + "/database.txt");
 	string line;
 	char delimiter = ',';
 
@@ -41,9 +41,9 @@ Database::Database(string filename) {
 		// [x-y] will be the following data, e.g. "name" "price" etc.
 
 		if (parts[0] == "user" && parts.size() == 2)
-			insert_user(generate_user(parts));
-		else if (parts[0] == "admin" && parts.size() == 3)
-			insert_user(generate_admin(parts));
+			insert_user(parts[1]);
+		//else if (parts[0] == "admin" && parts.size() == 3)
+		//	insert_user(generate_admin(parts));
 		else if (parts[0] == "item" && parts.size() == 5)
 			insert_item(generate_item(parts));
 		else if (parts[0] == "household" && parts.size() == 8)
@@ -70,7 +70,7 @@ vector<string> Database::tokenize(const string &line) {
 	return parts;
 }
 
-void Database::insert_user(User user) {
+void Database::insert_user(string user) {
 	user_table.push_back(user);
 }
 
@@ -102,8 +102,8 @@ Electronic Database::generate_electronic(vector<string> values) {
 
 
 bool Database::search_user(string value) {
-	for (auto it = user_table.begin(); it != user_table.end(); it++) {
-		if (it->name == value) {
+	for (int i = 0; i != size(user_table); i++) {
+		if (user_table[i] == value) {
 			return true; // User exists.
 		}
 	}
