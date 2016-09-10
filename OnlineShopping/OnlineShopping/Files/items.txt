@@ -1,10 +1,3 @@
-user,evan
-user,jeff
-user,byron
-user,daniel
-user,ricky
-admin,byteme,123
-admin,admin,admin
 item,Nike Heritage Baseball Hat,22.00,6,Put it on your head to protect your eyes!
 household,Buchannan Microfiber Loveseat,182.00,Thick padded arms and a detailed tufted-stiched back design that fits perfectly for any living area.,living room,medium,all
 household,Island Bay 13ft. Poolside Quick Dry Taupe Hammock,64.98,Durable hammok of weather-resistant polyester fiber. Lay in it and feel good.,outdoors,small,summer

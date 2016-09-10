@@ -17,7 +17,6 @@ public:
 	void insert_item(Item item);
 
 	User generate_user(vector <string> values);
-	Admin generate_admin(vector <string> values);
 	Item generate_item(vector <string> values);
 	Household generate_household(vector<string> values);
 	Book generate_book(vector<string> values);
@@ -28,23 +27,28 @@ public:
 };
 
 Database::Database(string directory) {
-	ifstream infile(directory + "/database.txt");
+	// Input file that stores usernames
+	ifstream userInfile(directory + "/users.txt");
+	// Input file that stores item data in comma separated format.
+	ifstream itemInfile(directory + "/items.txt");
+	// A temporary string variable for parsing purposes.
 	string line;
 	char delimiter = ',';
 
-	// Loops through the text file, tokenize parts, generates database.
-	while (getline(infile, line)) {
+	// Initialize username list from file
+	while (getline(userInfile, line)) {
+		insert_user(line);
+	}
+
+	// Initialize items list from file.
+	while (getline(itemInfile, line)) {
 		vector <string> parts;
 		split(line, delimiter, parts);
 
 		// [0] is the data type
 		// [x-y] will be the following data, e.g. "name" "price" etc.
 
-		if (parts[0] == "user" && parts.size() == 2)
-			insert_user(parts[1]);
-		//else if (parts[0] == "admin" && parts.size() == 3)
-		//	insert_user(generate_admin(parts));
-		else if (parts[0] == "item" && parts.size() == 5)
+		if (parts[0] == "item" && parts.size() == 5)
 			insert_item(generate_item(parts));
 		else if (parts[0] == "household" && parts.size() == 8)
 			insert_item(generate_household(parts));
@@ -80,9 +84,6 @@ void Database::insert_item(Item item) {
 
 User Database::generate_user(vector <string> values) {
 	return User(values[1]);
-}
-Admin Database::generate_admin(vector <string> values) {
-	return Admin(values[1], values[2]);
 }
 Item Database::generate_item(vector <string> values) {
 	return Item(values[1], stof(values[2]), stoi(values[3]), values[4]);

@@ -1,7 +1,15 @@
-key term followed by properties
+For each file the format is as follows:
 
-user,name
-admin,name,password
+users.txt:
+each line is a user name. I.E:
+
+ricky
+jeff
+daniel
+byron
+
+items.txt:
+each line is a comma separated entry for one item in the following format:
 item,name,price,quantity,description
 household,name,price,quantity,description,room,size,season
 book,name,price,quantity,description,author,genre,isbn
