@@ -16,7 +16,7 @@ public:
 	void insert_user(string user);
 	void insert_item(Item item);
 
-	User generate_user(vector <string> values);
+	string generate_user(vector <string> values);
 	Item generate_item(vector <string> values);
 	Household generate_household(vector<string> values);
 	Book generate_book(vector<string> values);
@@ -82,8 +82,8 @@ void Database::insert_item(Item item) {
 	item_table.push_back(item);
 }
 
-User Database::generate_user(vector <string> values) {
-	return User(values[1]);
+string Database::generate_user(vector <string> values) {
+	return string(values[1]);
 }
 Item Database::generate_item(vector <string> values) {
 	return Item(values[1], stof(values[2]), stoi(values[3]), values[4]);

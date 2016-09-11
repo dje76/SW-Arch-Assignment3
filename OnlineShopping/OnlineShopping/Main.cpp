@@ -22,27 +22,18 @@ int main() {
 	cout << "Enter (exit) if you would like to quit the program." << endl;
 
 	while (strcmp(input, "exit") != 0) {
-		cout << endl << "Please enter your pre-registered username: ";
+		cout << "Please enter your pre-registered username: ";
 		cin.getline(input, sizeof(input));
+		cout << endl;
 
-		cout << db.search_user(input) << endl; // It works!
-		
 		if (db.search_user(input)) {
 			User user(input);
 			user.Login();
 		}
 		else {
-			cout << "Invalid Account" << endl << endl;
+			cout << "Invalid Account" << endl;
 		}
-		// TODO:
-		// If the user exists, call user methods.
-
 	}
-
-	
-
-
-
 
 	return 0;
 }
