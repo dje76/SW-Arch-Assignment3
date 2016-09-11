@@ -103,7 +103,7 @@ Electronic Database::generate_electronic(vector<string> values) {
 
 
 bool Database::search_user(string value) {
-	for (int i = 0; i != size(user_table); i++) {
+	for (int i = 0; i != user_table.size(); i++) {
 		if (user_table[i] == value) {
 			return true; // User exists.
 		}
