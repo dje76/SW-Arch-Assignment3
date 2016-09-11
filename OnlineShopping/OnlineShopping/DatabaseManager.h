@@ -24,6 +24,9 @@ public:
 	Electronic generate_electronic(vector<string> values);
 
 	bool search_user(string value);
+	void search_item(string value);
+	void print(string type);
+	void Database::print_all();
 };
 
 Database::Database(string directory) {
@@ -109,4 +112,26 @@ bool Database::search_user(string value) {
 		}
 	}
 	return false; // User does not exist.
+}
+
+void Database::search_item(string value) {
+	for (int i = 0; i != item_table.size(); i++) {
+		if (item_table[i].name == value) {
+			item_table[i].print_details();
+		}
+	}
+}
+
+void Database::print(string type) {
+	for (int i = 0; i != item_table.size(); i++) {
+		if (item_table[i].type == type) {
+			item_table[i].print_details();
+		}
+	}
+}
+
+void Database::print_all() {
+	for (int i = 0; i != item_table.size(); i++) {
+		item_table[i].print_details();
+	}
 }

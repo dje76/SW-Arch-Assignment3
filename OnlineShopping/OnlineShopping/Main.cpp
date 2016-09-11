@@ -8,9 +8,9 @@ using namespace std;
 
 #include "Functions.h"
 #include "Items.h"
-#include "User.h"
 #include "Cart.h"
 #include "DatabaseManager.h"
+#include "User.h"
 
 int main() {
 	// Generate the database from the text file.
@@ -28,7 +28,7 @@ int main() {
 
 		if (db.search_user(input)) {
 			User user(input);
-			user.Login();
+			user.Login(db);
 		}
 		else {
 			cout << "Invalid Account" << endl;
