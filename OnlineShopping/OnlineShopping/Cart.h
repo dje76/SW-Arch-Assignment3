@@ -18,7 +18,7 @@ public:
 //Constructor
 Cart::Cart(void){
 	//dbManager.getCartFromDatabase(&items, &quantity);
-	for(int i=0;i<items.size();i++){
+	for(unsigned int i=0;i<items.size();i++){
 		total+= items[i].price*quantity[i];
 	}
 }
@@ -26,7 +26,7 @@ Cart::Cart(void){
 //adds an item to the cart
 void Cart::addToCart(Item item, int num){
 	int inList=0;
-	for(int i=0;i<items.size();i++){
+	for(unsigned int i=0;i<items.size();i++){
 		if(items[i].name==item.name){
 			quantity[i]+=num;
 			inList=1;
@@ -43,7 +43,7 @@ void Cart::addToCart(Item item, int num){
 
 //removes the selected item from the cart
 void Cart::removeFromCart(Item item, int num){
-	for(auto i=0;i<items.size();i++){
+	for(unsigned int i=0;i<items.size();i++){
 		if(items[i].name==item.name){
 			if(quantity[i]>num){
 				quantity[i]-=num;
@@ -77,7 +77,7 @@ class Order : public Cart{
 
 Order::Order(void){
 	//dbManager.getCartFromDatabase(&items, &quantity);
-	for(int i=0;i<items.size();i++){
+	for(unsigned int i=0;i<items.size();i++){
 		total += items[i].price*this->quantity[i];
 	}
 }
