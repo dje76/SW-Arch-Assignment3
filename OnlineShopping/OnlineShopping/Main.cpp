@@ -49,9 +49,16 @@ int main() {
 			//std::cout << "option 1 : brose" << std::endl;
 			db.print_all();
 		}
+<<<<<<< HEAD
 //ORDER HISTORY
 		if (!strcmp(input, "2") || !strcmp(input, "order history")) {
 			user.view_history();
+=======
+
+//SEARCH
+		if (!strcmp(input, "2") || !strcmp(input, "search")) {
+
+>>>>>>> 89de1e127a3a27a8676ad4a22a8b50cff5ceb4b4
 		}
 //LOGOUT
 		if (!strcmp(input, "3") || !strcmp(input, "logout")) {
@@ -59,31 +66,9 @@ int main() {
 		}
 
 
-
-
 	}//end operational-loop
 
 	std::cout << "Out of the looop" << std::endl;
-
-
-	/*
-
-
-	while (strcmp(input, "exit") != 0) {
-		cout << "Please enter your pre-registered username: ";
-		cin.getline(input, sizeof(input));
-		cout << endl;
-
-		if (db.search_user(input)) {
-			User user(input);
-			user.Login(db);
-		}
-		else {
-			cout << "Invalid Account" << endl;
-		}
-	}
-	*/
-
+	db.dumpDB();
 	return 0;
 }
-

@@ -1,6 +1,2 @@
-item,Nike Heritage Baseball Hat,22.00,6,Put it on your head to protect your eyes!
-household,Buchannan Microfiber Loveseat,182.00,Thick padded arms and a detailed tufted-stiched back design that fits perfectly for any living area.,living room,medium,all
-household,Island Bay 13ft. Poolside Quick Dry Taupe Hammock,64.98,Durable hammok of weather-resistant polyester fiber. Lay in it and feel good.,outdoors,small,summer
-book,The Great Gatsby,9.60,16,A social satire and a milestone in 20th century literature.,F. Scott Fitzgerald,Historical Fiction American Romance,9781597226769
-toy,Nef N-Strike Modulus ECS-10 Blaster,33.00,7,Get a whole arsenal in one blaster with the motorized Modulus ECS-10 blaster!,NERF,8
-electronic,Keurig 2.0 K250 Coffee Maker - Imperial Red,129.99,3,The Keurig K250 Brewing System features revolutionary Keurig 2.0 Brewing Technology!,Keurig,appliance
+book,The Great Gatsby,9.600000,16,A social satire and a milestone in 20th century literature.,F. Scott Fitzgerald,Historical Fiction American Romance,9781597226769
+toy,Nef N-Strike Modulus ECS-10 Blaster,33.000000,7,Get a whole arsenal in one blaster with the motorized Modulus ECS-10 blaster!,NERF,8

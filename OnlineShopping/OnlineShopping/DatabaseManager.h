@@ -14,10 +14,10 @@ public:
 	vector <Book> book_table;
 	vector <Toy> toy_table;
 	vector <Electronic> electronic_table;
-	
+
 	vector <Item> items_in_cart;
 	vector <int> quantity;
-	
+
 	Database(void);
 	Database(string filename);
 	void set_directory(string directory);
@@ -43,6 +43,10 @@ public:
 	void updateCartInDatabase(vector<Item> items,vector<int> quantity);
 	void addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment);
 	void getCartFromDatabase(vector<Item> &items,vector<int> &quantity);
+
+	void writeDB(vector<string> tokens, ofstream &file);
+	void dumpDB();
+
 };
 
 Database::Database(void){}
@@ -192,15 +196,15 @@ void Database::print_all() {
 }
 
 void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity){
-	
+
 }
 
 void Database::addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment){
-	
+
 }
 
 void Database::getCartFromDatabase(vector<Item> &items,vector<int> &quantity){
-	
+
 }
 
 //returns a vector of vectors containing info about the orders
@@ -210,7 +214,7 @@ vector<vector<string>> Database::get_order_history(string user){
 	string line;
 	char delimiter = ',';
 	vector<vector<string>> orders;
-	
+
 	// Initialize items list from file.
 	while (getline(orderInfile, line)) {
 		vector <string> parts;
@@ -219,3 +223,36 @@ vector<vector<string>> Database::get_order_history(string user){
 	}
 	return orders;
 }
+
+// Add this at the very end. Outside main.
+void Database::writeDB(vector<string> tokens, ofstream &file) {
+		for (int i = 0; i < tokens.size(); i++) {
+			if (i != tokens.size() - 1)
+			file << tokens[i] << ',';
+		else
+			file << tokens[i] << endl;
+	}//end for loop
+}//end write function
+
+void Database::dumpDB() {
+
+	remove("Files/items.txt");
+	ofstream outfile("Files/items.txt");
+
+	for (auto it : household_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+	for (auto it : book_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+	for (auto it : toy_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+	for (auto it : electronic_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+}//end dump
