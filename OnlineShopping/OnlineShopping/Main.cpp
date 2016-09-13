@@ -40,7 +40,7 @@ int main() {
 	while (strcmp(input, "exit") != 0) {
 		cout << "Select an Option" << endl;
 		cout << "1. browse" << endl;
-		cout << "2. search" << endl;
+		cout << "2. order history" << endl;
 		cout << "3. logout" << endl;
 		cin.getline(input, sizeof(input));
 
@@ -49,12 +49,10 @@ int main() {
 			//std::cout << "option 1 : brose" << std::endl;
 			db.print_all();
 		}
-
-//SEARCH
-		if (!strcmp(input, "2") || !strcmp(input, "search")) {
-			
+//ORDER HISTORY
+		if (!strcmp(input, "2") || !strcmp(input, "order history")) {
+			user.view_history();
 		}
-
 //LOGOUT
 		if (!strcmp(input, "3") || !strcmp(input, "logout")) {
 			break;

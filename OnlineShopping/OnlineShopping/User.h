@@ -16,7 +16,7 @@ public:
 	User(string name);
 	void Login(Database db);
 	void set_name(string n);
-	vector<Order> view_history();
+	void view_history();
 	void purchase_items();
 	void update_address(string newAddress);
 	void update_payment(string newPayment);
@@ -24,8 +24,10 @@ public:
 	void remove_from_cart(Item item, int num);
 };
 
-User::User(void) { }
-User::User(string name) {	this->name = name; }
+User::User(void) {
+	dbManager.set_directory("Files");
+}
+User::User(string name) {	this->name = name; dbManager.set_directory("Files");}
 
 //setter
 void User::set_name(string n) { this->name = n; }
@@ -52,22 +54,35 @@ void User::remove_from_cart(Item item, int num){
 	cart.removeFromCart(item, num);
 }
 
-vector<Order> User::view_history(){
+void User::view_history(){
+	cout << endl;
 	vector< vector<string> >  dbOrders = dbManager.get_order_history(name);
-	
+	if(dbOrders[0].size()==0 || dbOrders[0].size()==1){
+		cout << "You have no previous orders" << endl;
+		cout << endl;
+		return;
+	}
+	cout << "Name: " << name << endl;
 	for(unsigned int i=0;i<dbOrders.size();i++){
 		Order current_order;
 		current_order.payment = dbOrders[i][0];
+		cout << "Payment: " << dbOrders[i][0] << endl;
 		current_order.address = dbOrders[i][1];
+		cout << "Address: " << dbOrders[i][1] << endl;
 		current_order.total = std::stof(dbOrders[i][2]);
-		for(unsigned int j=3;i<dbOrders.size();j+=3){
+		cout << "Total: " << dbOrders[i][2] << endl;
+		for(unsigned int j=3;j<dbOrders[i].size();j+=3){
 			Item current_item;
 			current_item.name = dbOrders[i][j];
+			cout << "Item name: " << dbOrders[i][j] << endl;
+			current_order.quantity.push_back(std::stoi(dbOrders[i][j+1]));
+			cout << "Item quantity: " << dbOrders[i][j+1] << endl;
 			current_item.price = std::stof(dbOrders[i][j+2]);
-			current_order.quantity.push_back(std::stoi(dbOrders[i][j+2]));
+			cout << "Item price: " << dbOrders[i][j+2] << endl;
 			current_order.items.push_back(current_item);
 		}
 		orders.push_back(current_order);
+		cout << endl;
+		cout << endl;
 	}
-	return orders;
 }

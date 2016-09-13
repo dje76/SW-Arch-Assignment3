@@ -15,3 +15,4 @@ household,name,price,quantity,description,room,size,season
 book,name,price,quantity,description,author,genre,isbn
 toy,name,price,quantity,description,brand,age
 electronic,name,price,quantity,description,manufacturer,category
+
