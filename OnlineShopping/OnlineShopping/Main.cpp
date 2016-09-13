@@ -52,9 +52,7 @@ int main() {
 
 //SEARCH
 		if (!strcmp(input, "2") || !strcmp(input, "search")) {
-			cout << "What would you like to search for?" << endl;
-			cin.getline(input, sizeof(input));
-			db.search_item(input);
+			
 		}
 
 //LOGOUT
