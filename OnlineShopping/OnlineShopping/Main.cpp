@@ -52,7 +52,7 @@ int main() {
 
 //SEARCH
 		if (!strcmp(input, "2") || !strcmp(input, "search")) {
-			
+
 		}
 
 //LOGOUT
@@ -61,31 +61,9 @@ int main() {
 		}
 
 
-
-
 	}//end operational-loop
 
 	std::cout << "Out of the looop" << std::endl;
-
-
-	/*
-
-
-	while (strcmp(input, "exit") != 0) {
-		cout << "Please enter your pre-registered username: ";
-		cin.getline(input, sizeof(input));
-		cout << endl;
-
-		if (db.search_user(input)) {
-			User user(input);
-			user.Login(db);
-		}
-		else {
-			cout << "Invalid Account" << endl;
-		}
-	}
-	*/
-
+	db.dumpDB();
 	return 0;
 }
-
