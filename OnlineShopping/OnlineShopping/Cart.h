@@ -103,5 +103,3 @@ void Order::updateAddress(string newAddress){
 void Order::updatePayment(string newPayment){
 	payment = newPayment;
 }
-
-
