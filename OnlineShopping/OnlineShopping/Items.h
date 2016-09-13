@@ -11,7 +11,7 @@ public:
 
 	Item();
 	Item(string name, float price, int quantity, string description);
-	virtual void Item::print_details();
+	virtual void print_details();
 	vector<string> get_details();
 };
 
@@ -51,7 +51,7 @@ public:
 	string season;
 
 	Household(string name, float price, int quantity, string description, string room, string size, string season);
-	void Household::print_details();
+	void print_details();
 	vector<string> get_details();
 };
 
