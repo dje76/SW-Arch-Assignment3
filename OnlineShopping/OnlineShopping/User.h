@@ -69,4 +69,5 @@ vector<Order> User::view_history(){
 		}
 		orders.push_back(current_order);
 	}
+	return orders;
 }
