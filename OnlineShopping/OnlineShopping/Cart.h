@@ -1,20 +1,10 @@
 #pragma once
 
-#include <string.h>
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <sstream>
-
-using namespace std;
-
-#include "Items.h"
-#include "DatabaseManager.h"
 
 //the Cart class
 class Cart {
 public:
-	DatabaseManager dbManager;
+	//Database dbManager;
 	vector <Item> items;
 	vector <int> quantity;
 	float total;
@@ -52,7 +42,7 @@ void Cart::addToCart(Item item, int num){
 
 //removes the selected item from the cart
 void Cart::removeFromCart(Item item, int num){
-	for(int i=0;i<items.size();i++){
+	for(auto i=0;i<items.size();i++){
 		if(items[i].name==item.name){
 			if(quantity[i]>num){
 				quantity[i]-=num;
@@ -60,7 +50,7 @@ void Cart::removeFromCart(Item item, int num){
 			}
 			else{
 				items.erase(items.begin()+i);
-				quantity.erase(items.begin()+i);
+				quantity.erase(quantity.begin()+i);
 				total-= item.price*quantity[i];
 			}
 			break;
