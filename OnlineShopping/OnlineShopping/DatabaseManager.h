@@ -9,8 +9,10 @@ Will overwrite the text files upon completion to update information.
 class Database {
 public:
 	string directory;
-	vector <string> user_table;
-	vector <Item> item_table;
+	vector <Household> household_table;
+	vector <Book> book_table;
+	vector <Toy> toy_table;
+	vector <Electronic> electronic_table;
 	
 	vector <Item> items_in_cart;
 	vector <int> quantity;
@@ -20,7 +22,10 @@ public:
 	void set_directory(string directory);
 	vector<string> tokenize(const string &line);
 	void insert_user(string user);
-	void insert_item(Item item);
+	void insert_household(Household item);
+	void insert_book(Book item);
+	void insert_toy(Toy item);
+	void insert_electronic(Electronic item);
 
 	string generate_user(vector <string> values);
 	Item generate_item(vector <string> values);
