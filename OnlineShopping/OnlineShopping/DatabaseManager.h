@@ -42,7 +42,6 @@ public:
 Database::Database(void){}
 
 Database::Database(string directory) {
-	this->directory = directory;
 	// Input file that stores usernames
 	ifstream userInfile(directory + "/users.txt");
 	// Input file that stores item data in comma separated format.
@@ -64,16 +63,14 @@ Database::Database(string directory) {
 		// [0] is the data type
 		// [x-y] will be the following data, e.g. "name" "price" etc.
 
-		if (parts[0] == "item" && parts.size() == 5)
-			insert_item(generate_item(parts));
-		else if (parts[0] == "household" && parts.size() == 8)
-			insert_item(generate_household(parts));
+		if (parts[0] == "household" && parts.size() == 8)
+			insert_household(generate_household(parts));
 		else if (parts[0] == "book" && parts.size() == 8)
-			insert_item(generate_book(parts));
+			insert_book(generate_book(parts));
 		else if (parts[0] == "toy" && parts.size() == 7)
-			insert_item(generate_toy(parts));
+			insert_toy(generate_toy(parts));
 		else if (parts[0] == "electronic" && parts.size() == 7)
-			insert_item(generate_electronic(parts));
+			insert_electronic(generate_electronic(parts));
 	}
 }
 
@@ -130,29 +127,41 @@ void Database::insert_user(string user) {
 	user_table.push_back(user);
 }
 
-void Database::insert_item(Item item) {
-	item_table.push_back(item);
+void Database::insert_household(Household item) {
+	household_table.push_back(item);
+}
+
+void Database::insert_book(Book item) {
+	book_table.push_back(item);
+}
+
+void Database::insert_toy(Toy item) {
+	toy_table.push_back(item);
+}
+
+void Database::insert_electronic(Electronic item) {
+	electronic_table.push_back(item);
 }
 
 string Database::generate_user(vector <string> values) {
 	return string(values[1]);
 }
-Item Database::generate_item(vector <string> values) {
-	return Item(values[1], stof(values[2]), stoi(values[3]), values[4]);
-}
+
 Household Database::generate_household(vector<string> values) {
 	return Household(values[1], stof(values[2]), stoi(values[3]), values[4], values[5], values[6], values[7]);
 }
+
 Book Database::generate_book(vector<string> values) {
 	return Book(values[1], stof(values[2]), stoi(values[3]), values[4], values[5], values[6], values[7]);
 }
+
 Toy Database::generate_toy(vector<string> values) {
 	return Toy(values[1], stof(values[2]), stoi(values[3]), values[4], values[5], stoi(values[6]));
 }
+
 Electronic Database::generate_electronic(vector<string> values) {
 	return Electronic(values[1], stof(values[2]), stoi(values[3]), values[4], values[5], values[6]);
 }
-
 
 bool Database::search_user(string value) {
 	for (int i = 0; i != user_table.size(); i++) {
@@ -163,25 +172,18 @@ bool Database::search_user(string value) {
 	return false; // User does not exist.
 }
 
-void Database::search_item(string value) {
-	for (int i = 0; i != item_table.size(); i++) {
-		if (item_table[i].name == value) {
-			item_table[i].print_details();
-		}
-	}
-}
-
-void Database::print(string type) {
-	for (int i = 0; i != item_table.size(); i++) {
-		if (item_table[i].type == type) {
-			item_table[i].print_details();
-		}
-	}
-}
-
 void Database::print_all() {
-	for (int i = 0; i != item_table.size(); i++) {
-		item_table[i].print_details();
+	for (int i = 0; i != household_table.size(); i++) {
+		household_table[i].print_details();
+	}
+	for (int i = 0; i != book_table.size(); i++) {
+		book_table[i].print_details();
+	}
+	for (int i = 0; i != toy_table.size(); i++) {
+		toy_table[i].print_details();
+	}
+	for (int i = 0; i != electronic_table.size(); i++) {
+		electronic_table[i].print_details();
 	}
 }
 
@@ -213,4 +215,3 @@ vector<vector<string>> Database::get_order_history(string user){
 	}
 	return orders;
 }
-
