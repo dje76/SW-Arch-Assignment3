@@ -9,6 +9,7 @@ Will overwrite the text files upon completion to update information.
 class Database {
 public:
 	string directory;
+	vector <string> user_table;
 	vector <Household> household_table;
 	vector <Book> book_table;
 	vector <Toy> toy_table;
@@ -102,16 +103,14 @@ void Database::set_directory(string directory){
 		// [0] is the data type
 		// [x-y] will be the following data, e.g. "name" "price" etc.
 
-		if (parts[0] == "item" && parts.size() == 5)
-			insert_item(generate_item(parts));
-		else if (parts[0] == "household" && parts.size() == 8)
-			insert_item(generate_household(parts));
+		if (parts[0] == "household" && parts.size() == 8)
+			insert_household(generate_household(parts));
 		else if (parts[0] == "book" && parts.size() == 8)
-			insert_item(generate_book(parts));
+			insert_book(generate_book(parts));
 		else if (parts[0] == "toy" && parts.size() == 7)
-			insert_item(generate_toy(parts));
+			insert_toy(generate_toy(parts));
 		else if (parts[0] == "electronic" && parts.size() == 7)
-			insert_item(generate_electronic(parts));
+			insert_electronic(generate_electronic(parts));
 	}
 }
 
