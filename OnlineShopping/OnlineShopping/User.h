@@ -9,21 +9,19 @@ public:
 	Cart cart;
 	string payment;
 	string address;
-	//Database dbManager;
+	Database dbManager;
+	vector<Order> orders;
 
 	User();
 	User(string name);
 	void Login(Database db);
 	void set_name(string n);
-<<<<<<< HEAD
 	void view_history();
-=======
->>>>>>> 89de1e127a3a27a8676ad4a22a8b50cff5ceb4b4
 	void purchase_items();
-	void updateAddress(string newAddress);
-	void updatePayment(string newPayment);
-	void addToCart(Item item, int num);
-	void removeFromCart(Item item, int num);
+	void update_address(string newAddress);
+	void update_payment(string newPayment);
+	void add_to_cart(Item item, int num);
+	void remove_from_cart(Item item, int num);
 };
 
 User::User(void) {
@@ -36,26 +34,25 @@ void User::set_name(string n) { this->name = n; }
 
 //stores the order in the database and empties the cart
 void User::purchase_items(){
-	//dbManager.addOrderToDatabase(name, cart.items, cart.quantity, cart.total, address, payment);
+	dbManager.addOrderToDatabase(name, cart.items, cart.quantity, cart.total, address, payment);
 	cart.clear();
 }
 
-void User::updateAddress(string newAddress){
+void User::update_address(string newAddress){
 	address = newAddress;
 }
 
-void User::updatePayment(string newPayment){
+void User::update_payment(string newPayment){
 	payment = newPayment;
 }
 
-void User::addToCart(Item item, int num){
+void User::add_to_cart(Item item, int num){
 	cart.addToCart(item, num);
 }
 
-void User::removeFromCart(Item item, int num){
+void User::remove_from_cart(Item item, int num){
 	cart.removeFromCart(item, num);
 }
-<<<<<<< HEAD
 
 void User::view_history(){
 	cout << endl;
@@ -89,5 +86,3 @@ void User::view_history(){
 		cout << endl;
 	}
 }
-=======
->>>>>>> 89de1e127a3a27a8676ad4a22a8b50cff5ceb4b4
