@@ -212,7 +212,7 @@ void Electronic::print_details() {
 
 vector<string> Electronic::get_details() {
 	vector<string> tokens;
-	tokens.push_back("elctronic");
+	tokens.push_back("electronic");
 	tokens.push_back(this->name);
 	tokens.push_back(to_string(this->price));
 	tokens.push_back(to_string(this->quantity));

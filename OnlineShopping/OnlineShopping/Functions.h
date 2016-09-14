@@ -1,9 +1,9 @@
 #pragma once
 
+
 /*
 split feature from: http://stackoverflow.com/questions/236129/split-a-string-in-c
 */
-
 
 void split(const string &s, char delim, vector<string> &elems) {
 	stringstream ss;
