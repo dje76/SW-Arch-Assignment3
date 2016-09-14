@@ -1,0 +1,8 @@
+household,toster,22.500000,199,Toasts your buns,Kitchen,3 by 2 feet,all
+household,Printer paper,30.990000,5,300 sheets,Office,9 by 11 inches,all
+book,The Great Gatsby,9.600000,16,A social satire and a milestone in 20th century literature.,F. Scott Fitzgerald,Historical Fiction American Romance,9781597226769
+book,Lord of the Flies,11.430000,17,A group of British boys stuck on an uninhabited island who try to govern themselves with disastrous results.,William Golding,Allegorical novel,9781597232453
+toy,Nef N-Strike Modulus ECS-10 Blaster,33.000000,7,Get a whole arsenal in one blaster with the motorized Modulus ECS-10 blaster!,NERF,8
+toy,Teaching Cash Register,31.000000,18,The Learning Resources Teaching Cash Register lets your child improve his or her math skills and learn about money.,Learning Resources,3
+electronic,iPhone 7,800.000000,200,What? no headphone jack?,Apple,Phone
+electronic,Fax machine,1000.000000,4,An antique from the 90s,Brother,Fax
