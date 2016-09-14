@@ -75,6 +75,11 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
+							if (index > db.household_table.size()) {
+								std::cout << "Invalid Item Number" << std::endl;
+								break;
+							}
+
 							db.household_table[index-1].print_details();
 							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
@@ -104,8 +109,12 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							db.toy_table[index-1].print_details();
+							if (index > db.toy_table.size()) {
+								std::cout << "Invalid Item Number" << std::endl;
+								break;
+							}
 
+							db.toy_table[index-1].print_details();
 							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
@@ -131,8 +140,12 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							db.electronic_table[index-1].print_details();
+							if (index > db.electronic_table.size()) {
+								std::cout << "Invalid Item Number" << std::endl;
+								break;
+							}
 
+							db.electronic_table[index-1].print_details();
 							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
@@ -158,8 +171,13 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							db.book_table[index-1].print_details();
 
+							if (index > db.book_table.size()) {
+								std::cout << "Invalid Item Number" << std::endl;
+								break;
+							}
+
+							db.book_table[index-1].print_details();
 							std::cout << "Pick Quantity (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
