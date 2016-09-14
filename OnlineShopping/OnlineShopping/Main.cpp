@@ -21,12 +21,12 @@ int main() {
 
 	//db.print_all();
 	cout << "Hello, welcome to the Online Shopping Center!" << endl;
-	cout << "Enter (exit) if you would like to quit the program." << endl;
+	cout << "Enter (exit) if you would like to quit the program." << endl << endl;
 
 	// log-loop
 	while (strcmp(input, "exit") != 0) {
 
-		cout << "Enter Your User Name :: ";
+		cout << "Enter Your User Name : ";
 		cin.getline(input, sizeof(input));
 
 		if (db.search_user(input)) {
@@ -45,13 +45,14 @@ int main() {
 		cout << "1. browse" << endl;
 		cout << "2. order history" << endl;
 		cout << "3. view cart" << endl;
-		cout << "4. logout" << endl;
-		cout << "5. Testing Remove" << endl;
+		cout << "4. remove" << endl;
+		cout << "5. logout" << endl;
 		cin.getline(input, sizeof(input));
 
 //BROWSE
 	if (!strcmp(input, "1") || !strcmp(input, "browse")) {
-			std::cout << "\nSelect Catagory:" << std::endl;
+			std::cout << "\nSelect Catagory Number (1, 2...ect):" << std::endl;
+			cout << "----------" << endl;
 			cout << "1. Household" << endl;
 			cout << "2. Toys" << endl;
 			cout << "3. Electronics" << endl;
@@ -67,16 +68,18 @@ int main() {
 					while (true) {
 						int item;
 						int quantity;
-						std::cout << "Pick an Item Number to add - or back " << std::endl;
+						std::cout << "\nPick an Item Number to add (or 'back') " << std::endl;
 						cin.getline(input, sizeof(input));
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							std::cout << "Pick Quantity " << std::endl;
+							db.household_table[index-1].print_details();
+							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
+							if (!strcmp(input, "back")) { break; }
 							int quantity = stoi(input);
 
-							user.cart.addToCart(db.household_table[index-1], quantity);
+							user.add_to_cart(db.household_table[index-1], quantity);
 							break;
 
 						}//end if/else
@@ -94,15 +97,19 @@ int main() {
 					while (true) {
 						int item;
 						int quantity;
-						std::cout << "Pick an Item Number to add - or back " << std::endl;
+						std::cout << "\nPick an Item Number to add (or 'back') " << std::endl;
 						cin.getline(input, sizeof(input));
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							std::cout << "Pick Quantity " << std::endl;
+							db.toy_table[index-1].print_details();
+
+							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
+							if (!strcmp(input, "back")) { break; }
+
 							int quantity = stoi(input);
-							user.cart.addToCart(db.toy_table[index-1], quantity);
+							user.add_to_cart(db.toy_table[index-1], quantity);
 							break;
 						}//end if/else
 					}//end true while
@@ -117,15 +124,19 @@ int main() {
 					while (true) {
 						int item;
 						int quantity;
-						std::cout << "Pick an Item Number to add - or back " << std::endl;
+						std::cout << "\nPick an Item Number to add (or 'back') " << std::endl;
 						cin.getline(input, sizeof(input));
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							std::cout << "Pick Quantity " << std::endl;
+							db.electronic_table[index-1].print_details();
+
+							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
+							if (!strcmp(input, "back")) { break; }
+
 							int quantity = stoi(input);
-							user.cart.addToCart(db.electronic_table[index-1], quantity);
+							user.add_to_cart(db.electronic_table[index-1], quantity);
 							break;
 						}//end if/else
 					}//end true while
@@ -140,15 +151,19 @@ int main() {
 					while (true) {
 						int item;
 						int quantity;
-						std::cout << "Pick an Item Number to add - or back " << std::endl;
+						std::cout << "\nPick an Item Number to add (or 'back') " << std::endl;
 						cin.getline(input, sizeof(input));
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							std::cout << "Pick Quantity " << std::endl;
+							db.book_table[index-1].print_details();
+
+							std::cout << "Pick Quantity (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
+							if (!strcmp(input, "back")) { break; }
+
 							int quantity = stoi(input);
-							user.cart.addToCart(db.book_table[index-1], quantity);
+							user.add_to_cart(db.book_table[index-1], quantity);
 							break;
 						}//end if/else
 					}//end true while
@@ -162,6 +177,7 @@ int main() {
 //VIEW CART
 		else if (!strcmp(input, "3") || !strcmp(input, "view order")) {
 			std::cout << std::endl;
+			std::cout << "----------\nYour Cart\n----------" << std::endl;
 			std::cout << "Total: " <<user.cart.total << std::endl;
 			for(int i=0;i<user.cart.items.size();i++){
 				std::cout << i+1 << ".  "<< "Item name: " <<user.cart.items[i].name << std::endl;
@@ -171,7 +187,7 @@ int main() {
 		}
 
 // REMOVE
-	else if (!strcmp(input, "5") || !strcmp(input, "remove")){
+	else if (!strcmp(input, "4") || !strcmp(input, "remove")){
 		std::cout << "Choose an item to remove - or 'back'" << std::endl <<std::endl;
 
 		//show current cart
@@ -202,7 +218,7 @@ int main() {
 				int quantity = stoi(input);
 
 				//call user method to remove item
-				user.cart.removeFromCart(user.cart.items[cart_index-1], quantity);
+				user.remove_from_cart(user.cart.items[cart_index-1], quantity);
 
 				//helpful message :: "You now have 'x' 'item_name' in your cart."
 				std::cout << "You now have "
@@ -217,35 +233,13 @@ int main() {
 	}//end if (remove)
 
 //LOGOUT
-		else if (!strcmp(input, "4") || !strcmp(input, "logout")) {
+		else if (!strcmp(input, "5") || !strcmp(input, "logout")) {
 			break;
 		}
 
-
-
-
 	}//end operational-loop
 
-	std::cout << "Out of the looop" << std::endl;
-
-
-	/*
-
-
-	while (strcmp(input, "exit") != 0) {
-		cout << "Please enter your pre-registered username: ";
-		cin.getline(input, sizeof(input));
-		cout << endl;
-
-		if (db.search_user(input)) {
-			User user(input);
-			user.Login(db);
-		}
-		else {
-			cout << "Invalid Account" << endl;
-		}
-	}
-	*/
+	std::cout << "Ending Program" << std::endl;
 
 	return 0;
 }
