@@ -30,7 +30,6 @@ public:
 	void insert_electronic(Electronic item);
 
 	string generate_user(vector <string> values);
-	Item generate_item(vector <string> values);
 	Household generate_household(vector<string> values);
 	Book generate_book(vector<string> values);
 	Toy generate_toy(vector<string> values);
@@ -38,8 +37,6 @@ public:
 
 	vector< vector<string> > get_order_history(string user);
 	bool search_user(string value);
-	void search_item(string value);
-	void print(string type);
 	void print_all();
 	void updateCartInDatabase(vector<Item> items,vector<int> quantity, string user);
 	void addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment);
@@ -84,7 +81,6 @@ Database::Database(string directory) {
 }
 
 void Database::set_directory(string directory){
-	cout << "\ntest\n"; 
 	this->directory = directory;
 	// Input file that stores usernames
 	ifstream userInfile(directory + "/users.txt");

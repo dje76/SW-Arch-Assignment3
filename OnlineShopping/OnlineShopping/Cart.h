@@ -65,9 +65,9 @@ void Cart::removeFromCart(Item item, int num, string user){
 				total-= item.price*num;
 			}
 			else{
+				total -= item.price*quantity[i];
 				items.erase(items.begin()+i);
 				quantity.erase(quantity.begin()+i);
-				total-= item.price*quantity[i];
 			}
 			break;
 		}

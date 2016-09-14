@@ -240,11 +240,6 @@ int main() {
 				//call user method to remove item
 				user.remove_from_cart(user.cart.items[cart_index-1], quantity);
 
-				//helpful message :: "You now have 'x' 'item_name' in your cart."
-				std::cout << "You now have "
-									<< user.cart.quantity[cart_index-1]
-									<< " '" << user.cart.items[cart_index-1].name << "'"
-									<< " in your cart." << std::endl;
 				break;
 			}//end if/else
 		}//end true while
