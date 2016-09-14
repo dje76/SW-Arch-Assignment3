@@ -46,7 +46,9 @@ int main() {
 		cout << "2. order history" << endl;
 		cout << "3. view cart" << endl;
 		cout << "4. remove" << endl;
-		cout << "5. logout" << endl;
+		cout << "5. checkout" << endl;
+		cout << "---------------" << endl;
+		cout << "6. logout" << endl;
 		cin.getline(input, sizeof(input));
 
 //BROWSE
@@ -228,12 +230,53 @@ int main() {
 				break;
 			}//end if/else
 		}//end true while
-
-
 	}//end if (remove)
 
+//CHECKOUT
+		else if (!strcmp(input, "5") || !strcmp(input, "checkout")) {
+
+			//show cart
+			std::cout << "----------\nYour Cart\n----------" << std::endl;
+			std::cout << "Total: " <<user.cart.total << std::endl;
+			for(int i=0;i<user.cart.items.size();i++){
+				std::cout << i+1 << ".  "<< "Item name: " <<user.cart.items[i].name << std::endl;
+				std::cout << "     Quantity: " <<user.cart.quantity[i] << std::endl;
+			}//end for loop
+			std::cout << "\nAre you sure you want to checkout? [yes/no]" << std::endl;
+			cin.getline(input, sizeof(input));
+			if (!strcmp(input, "yes")) {
+
+				//get shipping address
+				string address;
+				std::cout << "Provide Shipping Information " << std::endl;
+				cin.getline(input, sizeof(input));
+				address = input;
+
+				//get payment information
+				string card_num;
+				std::cout << "Provide Credit Cart Number " << std::endl;
+				cin.getline(input, sizeof(input));
+				card_num = input;
+
+				//add information to the order
+				user.update_address(address);
+				user.update_payment(card_num);
+				user.purchase_items();
+
+				//            TODO
+				//write the order to the data base
+
+				std::cout << "You order was placed and your cart was cleared." << std::endl;
+				std::cout << "Thank You!" << std:: endl << std::endl;
+			} else {
+				std::cout << "Order NOT confirmed. You may continue browsing." << std::endl;
+			}//end if/else
+
+
+		}//end if (checkout)
+
 //LOGOUT
-		else if (!strcmp(input, "5") || !strcmp(input, "logout")) {
+		else if (!strcmp(input, "6") || !strcmp(input, "logout")) {
 			break;
 		}
 
