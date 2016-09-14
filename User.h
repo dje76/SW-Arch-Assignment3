@@ -1,7 +1,11 @@
 #pragma once
 
 /*
-Consists of User and Admin functionality.
+The user class is what the main class interacts with.
+The main class does not interact with any other classes but does everything though the user class.
+
+The main class has a dependency on the user class.
+User has a dependency on the cart class.
 */
 class User {
 public:
@@ -9,7 +13,6 @@ public:
 	Cart cart;
 	string payment;
 	string address;
-	//Database cart.dbManager;
 	vector<Order> orders;
 
 	User();
@@ -26,14 +29,12 @@ public:
 };
 
 User::User(void) {}
-User::User(string name) {	this->name = name; cart.dbManager.set_directory("Files");}
+User::User(string name) { this->name = name; }
 
 //setter
 void User::set_name(string n) { this->name = n; }
 
-void User::get_cart(){
-	cart.set_cart(name);
-}
+void User::get_cart(){ cart.set_cart(name); }
 
 //stores the order in the database and empties the cart
 void User::purchase_items(){

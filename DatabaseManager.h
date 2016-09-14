@@ -1,9 +1,12 @@
 #pragma once
 
 /*
-Database consisting of two tables: Users and Items.
+Database consisting of 7 tables: Users, cart, history, household, book, toy, and electronic.
 Requires text files to pull data from.
-Will overwrite the text files upon completion to update information.
+Will overwrite the text files to update information.
+
+The cart class uses this class to make changes to the database.
+Cart has a dependency on this class.
 */
 
 class Database {

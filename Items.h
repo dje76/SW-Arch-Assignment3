@@ -1,5 +1,13 @@
 #pragma once
 
+/*
+The different item classes inherit from the item base class.
+
+The Item class is used by all other classes and is used to store data about items.
+All other classes have a dependency on the item classes.
+The only methods that the classes use are to display or get the data in the classes.
+*/
+
 class Item {
 	// "name", price, quantity, "description"
 public:
