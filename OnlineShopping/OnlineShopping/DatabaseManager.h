@@ -226,14 +226,37 @@ void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity, str
 	
 	remove("Files/cart.txt");
 	ofstream cartOutfile(directory + "/cart.txt");
-	for(int i=0;i<size;i++){
+	for(int i=0;i<lines.size();i++){
 		cartOutfile << lines[i] << endl;
 	}
 	cartOutfile.close();
 }
 
 void Database::addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment){
+	ifstream orderInfile(directory + "/" + user + ".txt");
+	// A temporary string variable for parsing purposes.
+	string line;
+	char delimiter = ',';
+	vector<string> lines;
 	
+	// Initialize items list from file.
+	while (getline(orderInfile, line)) {
+		lines.push_back(line);
+	}
+	orderInfile.close();
+	
+	string new_order = payment + "," + address + "," + to_string(total);
+	for(int i=0;i<items.size();i++){
+		new_order = new_order + "," + items[i].name + "," + to_string(quantity[i]) + "," + to_string(items[i].price);
+	}
+	lines.push_back(new_order);
+	cout << new_order << std::endl;
+	string filename = directory + "/" + user + ".txt";
+	ofstream orderOutfile(filename);
+	for(int i=0;i<lines.size();i++){
+		orderOutfile << lines[i] << endl;
+	}
+	orderOutfile.close();
 }
 
 std::pair <vector<Item>,vector<int>> Database::getCartFromDatabase(vector<Item> items,vector<int> quantity, string user){
@@ -310,6 +333,7 @@ std::pair <vector<Item>,vector<int>> Database::getCartFromDatabase(vector<Item> 
 
 //returns a vector of vectors containing info about the orders
 vector<vector<string>> Database::get_order_history(string user){
+	history.clear();
 	ifstream orderInfile(directory + "/" + user + ".txt");
 	// A temporary string variable for parsing purposes.
 	string line;

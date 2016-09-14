@@ -61,6 +61,7 @@ void User::remove_from_cart(Item item, int num){
 
 void User::view_history(){
 	cout << endl;
+	orders.clear();
 	vector< vector<string> >  dbOrders = dbManager.get_order_history(name);
 	if(dbOrders[0].size()==0 || dbOrders[0].size()==1){
 		cout << "You have no previous orders" << endl;
