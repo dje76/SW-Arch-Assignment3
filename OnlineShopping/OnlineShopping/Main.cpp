@@ -18,7 +18,7 @@ int main() {
 	Database db("Files");
 	char input[100];
 	User user;
-	
+
 	//db.print_all();
 	cout << "Hello, welcome to the Online Shopping Center!" << endl;
 	cout << "Enter (exit) if you would like to quit the program." << endl;
@@ -40,11 +40,13 @@ int main() {
 
 	//operational loop
 	while (strcmp(input, "exit") != 0) {
+		cout << "\n----------\n" << "Main Menu\n" << "----------" << std::endl;
 		cout << "Select an Option" << endl;
 		cout << "1. browse" << endl;
 		cout << "2. order history" << endl;
 		cout << "3. view cart" << endl;
 		cout << "4. logout" << endl;
+		cout << "5. Testing Remove" << endl;
 		cin.getline(input, sizeof(input));
 
 //BROWSE
@@ -162,11 +164,58 @@ int main() {
 			std::cout << std::endl;
 			std::cout << "Total: " <<user.cart.total << std::endl;
 			for(int i=0;i<user.cart.items.size();i++){
-				std::cout << "Item name: " <<user.cart.items[i].name << std::endl;
-				std::cout << "Item price: " <<user.cart.quantity[i] << std::endl;
+				std::cout << i+1 << ".  "<< "Item name: " <<user.cart.items[i].name << std::endl;
+				std::cout << "     Quantity: " <<user.cart.quantity[i] << std::endl;
 			}
 			cout <<endl;
 		}
+
+// REMOVE
+	else if (!strcmp(input, "5") || !strcmp(input, "remove")){
+		std::cout << "Choose an item to remove - or 'back'" << std::endl <<std::endl;
+
+		//show current cart
+		for(int i=0;i<user.cart.items.size();i++){
+			std::cout << i+1 << ".  "<< "Item name: " <<user.cart.items[i].name << std::endl;
+			std::cout << "     Quantity: " <<user.cart.quantity[i] << std::endl;
+		}//end for loop
+
+		while (true) {
+			/*
+			*/
+			int cart_index;
+			int quantity;
+			std::cout << std::endl;
+			cin.getline(input, sizeof(input));
+			if (!strcmp(input, "back")) { break; }
+			else {
+				int cart_index = stoi(input);
+
+				//helpful message :: "You have 'x' 'item_name' in your cart."
+				std::cout << "You have "
+									<< user.cart.quantity[cart_index-1]
+									<< " '" << user.cart.items[cart_index-1].name << "'"
+									<< " in your cart." << std::endl;
+
+				std::cout << "How many do you want to Remove?" << std::endl;
+				cin.getline(input, sizeof(input));
+				int quantity = stoi(input);
+
+				//call user method to remove item
+				user.cart.removeFromCart(user.cart.items[cart_index-1], quantity);
+
+				//helpful message :: "You now have 'x' 'item_name' in your cart."
+				std::cout << "You now have "
+									<< user.cart.quantity[cart_index-1]
+									<< " '" << user.cart.items[cart_index-1].name << "'"
+									<< " in your cart." << std::endl;
+				break;
+			}//end if/else
+		}//end true while
+
+
+	}//end if (remove)
+
 //LOGOUT
 		else if (!strcmp(input, "4") || !strcmp(input, "logout")) {
 			break;
