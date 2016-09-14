@@ -1,2 +1,0 @@
-payment,address,22.50,item name,2,5.00,item name,3,4.01,item name,2,4.76,item name,4,4.32,item name,3,4.34
-payment,address,22.50,item name,2,5.00,item name,3,4.01,item name,2,4.76,item name,4,4.32,item name,3,4.34
