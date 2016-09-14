@@ -7,7 +7,7 @@ public:
 	vector <Item> items;
 	vector <int> quantity;
 	float total;
-	
+
 	Cart(void);
 	void addToCart(Item item, int num, string user);
 	void set_cart(string user);
@@ -32,18 +32,26 @@ void Cart::set_cart(string user){
 
 //adds an item to the cart
 void Cart::addToCart(Item item, int num, string user){
-	int inList=0;
+	int inList=-1;
+
 	for(unsigned int i=0;i<items.size();i++){
 		if(items[i].name==item.name){
 			quantity[i]+=num;
-			inList=1;
+			inList=i;
 			break;
 		}
 	}
-	if(inList==0){
+
+	if(inList==-1){
+		if (item.quantity < num) { num = item.quantity; }
 		items.push_back(item);
 		quantity.push_back(num);
-	}
+	} else if (quantity[inList]+num > item.quantity){
+		quantity[inList] = item.quantity;
+	}//end if/else
+
+
+
 	dbManager.updateCartInDatabase(items, quantity, user);
 	total+= item.price*num;
 }
