@@ -18,7 +18,8 @@ int main() {
 	Database db("Files");
 	char input[100];
 	User user;
-
+	
+	//db.print_all();
 	cout << "Hello, welcome to the Online Shopping Center!" << endl;
 	cout << "Enter (exit) if you would like to quit the program." << endl;
 
@@ -30,6 +31,7 @@ int main() {
 
 		if (db.search_user(input)) {
 			user.set_name(input);
+			user.get_cart();
 			break;
 		} else {
 			cout << "Invalid User" << endl;
@@ -41,7 +43,8 @@ int main() {
 		cout << "Select an Option" << endl;
 		cout << "1. browse" << endl;
 		cout << "2. order history" << endl;
-		cout << "3. logout" << endl;
+		cout << "3. view cart" << endl;
+		cout << "4. logout" << endl;
 		cin.getline(input, sizeof(input));
 
 //BROWSE
@@ -154,8 +157,18 @@ int main() {
 		else if (!strcmp(input, "2") || !strcmp(input, "order history")) {
 			user.view_history();
 		}
+//VIEW CART
+		else if (!strcmp(input, "3") || !strcmp(input, "view order")) {
+			std::cout << std::endl;
+			std::cout << "Total: " <<user.cart.total << std::endl;
+			for(int i=0;i<user.cart.items.size();i++){
+				std::cout << "Item name: " <<user.cart.items[i].name << std::endl;
+				std::cout << "Item price: " <<user.cart.quantity[i] << std::endl;
+			}
+			cout <<endl;
+		}
 //LOGOUT
-		else if (!strcmp(input, "3") || !strcmp(input, "logout")) {
+		else if (!strcmp(input, "4") || !strcmp(input, "logout")) {
 			break;
 		}
 

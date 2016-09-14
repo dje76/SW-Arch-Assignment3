@@ -1,23 +1,30 @@
 #pragma once
 
-
 //the Cart class
 class Cart {
 public:
-	//Database dbManager;
+	Database dbManager;
 	vector <Item> items;
 	vector <int> quantity;
 	float total;
 	
 	Cart(void);
 	void addToCart(Item item, int num);
+	void set_cart(string user);
 	void removeFromCart(Item item, int num);
 	void clear();
 };
 
 //Constructor
 Cart::Cart(void){
-	//dbManager.getCartFromDatabase(&items, &quantity);
+	dbManager.set_directory("Files");
+}
+
+void Cart::set_cart(string user){
+	std::pair <vector<Item>,vector<int>> product = dbManager.getCartFromDatabase(items, quantity, user);
+	items = product.first;
+	quantity = product.second;
+
 	for(unsigned int i=0;i<items.size();i++){
 		total+= items[i].price*quantity[i];
 	}
@@ -37,7 +44,7 @@ void Cart::addToCart(Item item, int num){
 		items.push_back(item);
 		quantity.push_back(num);
 	}
-	//dbManager.updateCartInDatabase(items, quantity);
+	dbManager.updateCartInDatabase(items, quantity);
 	total+= item.price*num;
 }
 
@@ -57,13 +64,13 @@ void Cart::removeFromCart(Item item, int num){
 			break;
 		}
 	}
-	//dbManager.updateCartInDatabase(items, quantity);
+	dbManager.updateCartInDatabase(items, quantity);
 }
 
 void Cart::clear(){
 	items.clear();
 	quantity.clear();
-	//dbManager.updateCartInDatabase(items, quantity);
+	dbManager.updateCartInDatabase(items, quantity);
 }
 
 //the Order class, it inharits from Cart
@@ -76,8 +83,4 @@ class Order : public Cart{
 };
 
 Order::Order(void){
-	//dbManager.getCartFromDatabase(&items, &quantity);
-	for(unsigned int i=0;i<items.size();i++){
-		total += items[i].price*this->quantity[i];
-	}
 }

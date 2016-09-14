@@ -14,10 +14,11 @@ public:
 	vector <Book> book_table;
 	vector <Toy> toy_table;
 	vector <Electronic> electronic_table;
-
+	
 	vector <Item> items_in_cart;
-	vector <int> quantity;
-
+	vector <int> quantity_in_cart;
+	vector<vector<string>> history;
+	
 	Database(void);
 	Database(string filename);
 	void set_directory(string directory);
@@ -42,11 +43,7 @@ public:
 	void print_all();
 	void updateCartInDatabase(vector<Item> items,vector<int> quantity);
 	void addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment);
-	void getCartFromDatabase(vector<Item> &items,vector<int> &quantity);
-
-	void writeDB(vector<string> tokens, ofstream &file);
-	void dumpDB();
-
+	std::pair <vector<Item>,vector<int>> getCartFromDatabase(vector<Item> items,vector<int> quantity, string user);
 };
 
 Database::Database(void){}
@@ -196,15 +193,82 @@ void Database::print_all() {
 }
 
 void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity){
-
+	
 }
 
 void Database::addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment){
-
+	
 }
 
-void Database::getCartFromDatabase(vector<Item> &items,vector<int> &quantity){
+std::pair <vector<Item>,vector<int>> Database::getCartFromDatabase(vector<Item> items,vector<int> quantity, string user){
+	ifstream cartInfile(directory + "/cart.txt");
+	// A temporary string variable for parsing purposes.
+	string line;
+	char delimiter = ',';
+	vector<string> cart;
+	
+	// Initialize items list from file.
+	while (getline(cartInfile, line)) {
+		vector <string> parts;
+		split(line, delimiter, parts);
+		if(parts[0] == user){
+			cart = parts;
+			break;
+		}
+	}
+	int cont = 0;
+	for(int i=1;i<cart.size();i+=2){
+		for(int j=0;j<household_table.size();j++){
+			cout << household_table[j].name <<endl;
+			if(cart[i] == household_table[j].name){
+				items_in_cart.push_back(household_table[j]);
+				cont++;
+				quantity_in_cart.push_back(std::stoi(cart[i+1]));
+				break;
+			}
+			cont = 0;
+		}
+		if(cont){
+			continue;
+		}
+		for(int j=0;j<book_table.size();j++){
+			if(cart[i] == book_table[j].name){
+				items_in_cart.push_back(book_table[j]);
+				cont++;
+				quantity_in_cart.push_back(std::stoi(cart[i+1]));
+				break;
+			}
+			cont = 0;
+		}
+		if(cont){
+			continue;
+		}
+		for(int j=0;j<toy_table.size();j++){
+			if(cart[i] == toy_table[j].name){
+				items_in_cart.push_back(toy_table[j]);
+				quantity_in_cart.push_back(std::stoi(cart[i+1]));
+				cont++;
+				break;
+			}
+			cont = 0;
+		}
+		if(cont){
+			continue;
+		}
+		for(int j=0;j<electronic_table.size();j++){
+			if(cart[i] == electronic_table[j].name){
+				items_in_cart.push_back(electronic_table[j]);
+				quantity_in_cart.push_back(std::stoi(cart[i+1]));
+				break;
+			}
+			cont = 0;
+		}
+	}
 
+	items = items_in_cart;
+	quantity = quantity_in_cart;
+	std::pair <vector<Item>,vector<int>> product(items,quantity);
+	return product;
 }
 
 //returns a vector of vectors containing info about the orders
@@ -213,46 +277,12 @@ vector<vector<string>> Database::get_order_history(string user){
 	// A temporary string variable for parsing purposes.
 	string line;
 	char delimiter = ',';
-	vector<vector<string>> orders;
-
+	
 	// Initialize items list from file.
 	while (getline(orderInfile, line)) {
 		vector <string> parts;
 		split(line, delimiter, parts);
-		orders.push_back(parts);
+		history.push_back(parts);
 	}
-	return orders;
+	return history;
 }
-
-// Add this at the very end. Outside main.
-void Database::writeDB(vector<string> tokens, ofstream &file) {
-		for (int i = 0; i < tokens.size(); i++) {
-			if (i != tokens.size() - 1)
-			file << tokens[i] << ',';
-		else
-			file << tokens[i] << endl;
-	}//end for loop
-}//end write function
-
-void Database::dumpDB() {
-
-	remove("Files/items.txt");
-	ofstream outfile("Files/items.txt");
-
-	for (auto it : household_table) {
-		vector<string> tokens = it.get_details();
-		writeDB(tokens, outfile);
-	}
-	for (auto it : book_table) {
-		vector<string> tokens = it.get_details();
-		writeDB(tokens, outfile);
-	}
-	for (auto it : toy_table) {
-		vector<string> tokens = it.get_details();
-		writeDB(tokens, outfile);
-	}
-	for (auto it : electronic_table) {
-		vector<string> tokens = it.get_details();
-		writeDB(tokens, outfile);
-	}
-}//end dump

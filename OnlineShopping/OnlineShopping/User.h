@@ -16,6 +16,7 @@ public:
 	User(string name);
 	void Login(Database db);
 	void set_name(string n);
+	void get_cart();
 	void view_history();
 	void purchase_items();
 	void update_address(string newAddress);
@@ -31,6 +32,10 @@ User::User(string name) {	this->name = name; dbManager.set_directory("Files");}
 
 //setter
 void User::set_name(string n) { this->name = n; }
+
+void User::get_cart(){
+	cart.set_cart(name);
+}
 
 //stores the order in the database and empties the cart
 void User::purchase_items(){
