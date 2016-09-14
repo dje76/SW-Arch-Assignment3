@@ -9,7 +9,7 @@ public:
 	Cart cart;
 	string payment;
 	string address;
-	Database dbManager;
+	//Database cart.dbManager;
 	vector<Order> orders;
 
 	User();
@@ -25,10 +25,8 @@ public:
 	void remove_from_cart(Item item, int num);
 };
 
-User::User(void) {
-	dbManager.set_directory("Files");
-}
-User::User(string name) {	this->name = name; dbManager.set_directory("Files");}
+User::User(void) {}
+User::User(string name) {	this->name = name; cart.dbManager.set_directory("Files");}
 
 //setter
 void User::set_name(string n) { this->name = n; }
@@ -39,9 +37,36 @@ void User::get_cart(){
 
 //stores the order in the database and empties the cart
 void User::purchase_items(){
-	dbManager.addOrderToDatabase(name, cart.items, cart.quantity, cart.total, address, payment);
+	cart.dbManager.addOrderToDatabase(name, cart.items, cart.quantity, cart.total, address, payment);
+	for (int i = 0; i < cart.items.size(); i++) {
+
+		for(int j=0;j<cart.dbManager.household_table.size();j++){
+			if(cart.items[i].name == cart.dbManager.household_table[j].name){
+			cart.dbManager.household_table[j].quantity -= cart.quantity[i];
+			}
+		}
+
+		for(int j=0;j<cart.dbManager.book_table.size();j++){
+			if(cart.items[i].name == cart.dbManager.book_table[j].name){
+			cart.dbManager.book_table[j].quantity -= cart.quantity[i];
+			}
+		}
+
+		for(int j=0;j<cart.dbManager.electronic_table.size();j++){
+			if(cart.items[i].name == cart.dbManager.electronic_table[j].name){
+			cart.dbManager.electronic_table[j].quantity -= cart.quantity[i];
+			}
+		}
+
+		for(int j=0;j<cart.dbManager.toy_table.size();j++){
+			if(cart.items[i].name == cart.dbManager.toy_table[j].name){
+			cart.dbManager.toy_table[j].quantity -= cart.quantity[i];
+			}
+		}
+
+	}//end for loop
 	cart.clear(name);
-}
+}//end purchase_items()
 
 void User::update_address(string newAddress){
 	address = newAddress;
@@ -62,7 +87,7 @@ void User::remove_from_cart(Item item, int num){
 void User::view_history(){
 	cout << endl;
 	orders.clear();
-	vector< vector<string> >  dbOrders = dbManager.get_order_history(name);
+	vector< vector<string> >  dbOrders = cart.dbManager.get_order_history(name);
 	if(dbOrders[0].size()==0 || dbOrders[0].size()==1){
 		cout << "You have no previous orders" << endl;
 		cout << endl;

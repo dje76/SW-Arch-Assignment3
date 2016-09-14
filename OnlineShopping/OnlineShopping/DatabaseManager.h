@@ -14,11 +14,11 @@ public:
 	vector <Book> book_table;
 	vector <Toy> toy_table;
 	vector <Electronic> electronic_table;
-	
+
 	vector <Item> items_in_cart;
 	vector <int> quantity_in_cart;
 	vector<vector<string>> history;
-	
+
 	Database(void);
 	Database(string filename);
 	void set_directory(string directory);
@@ -84,6 +84,7 @@ Database::Database(string directory) {
 }
 
 void Database::set_directory(string directory){
+	cout << "\ntest\n"; 
 	this->directory = directory;
 	// Input file that stores usernames
 	ifstream userInfile(directory + "/users.txt");
@@ -204,7 +205,7 @@ void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity, str
 	string new_cart;
 	int index=0;
 	int size=0;
-	
+
 	// Initialize items list from file.
 	while (getline(cartInfile, line)) {
 		vector <string> parts;
@@ -217,13 +218,13 @@ void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity, str
 		size++;
 	}
 	cartInfile.close();
-	
+
 	new_cart = user;
 	for(int i=0;i<items.size();i++){
 		new_cart = new_cart + "," + items[i].name + "," + std::to_string(quantity[i]);
 	}
 	lines[index] = new_cart;
-	
+
 	remove("Files/cart.txt");
 	ofstream cartOutfile(directory + "/cart.txt");
 	for(int i=0;i<lines.size();i++){
@@ -238,13 +239,13 @@ void Database::addOrderToDatabase(string user, vector<Item> items,vector<int> qu
 	string line;
 	char delimiter = ',';
 	vector<string> lines;
-	
+
 	// Initialize items list from file.
 	while (getline(orderInfile, line)) {
 		lines.push_back(line);
 	}
 	orderInfile.close();
-	
+
 	string new_order = payment + "," + address + "," + to_string(total);
 	for(int i=0;i<items.size();i++){
 		new_order = new_order + "," + items[i].name + "," + to_string(quantity[i]) + "," + to_string(items[i].price);
@@ -265,7 +266,7 @@ std::pair <vector<Item>,vector<int>> Database::getCartFromDatabase(vector<Item> 
 	string line;
 	char delimiter = ',';
 	vector<string> cart;
-	
+
 	// Initialize items list from file.
 	while (getline(cartInfile, line)) {
 		vector <string> parts;
@@ -338,7 +339,7 @@ vector<vector<string>> Database::get_order_history(string user){
 	// A temporary string variable for parsing purposes.
 	string line;
 	char delimiter = ',';
-	
+
 	// Initialize items list from file.
 	while (getline(orderInfile, line)) {
 		vector <string> parts;

@@ -15,11 +15,11 @@ using namespace std;
 
 int main() {
 	// Generate the database from the text file.
-	Database db("Files");
-	char input[100];
 	User user;
+	//Database user.cart.dbManager("Files");
+	char input[100];
 
-	//db.print_all();
+	//user.cart.dbManager.print_all();
 	cout << "Hello, welcome to the Online Shopping Center!" << endl;
 	cout << "Enter (exit) if you would like to quit the program." << endl << endl;
 
@@ -29,7 +29,7 @@ int main() {
 		cout << "Enter Your User Name : ";
 		cin.getline(input, sizeof(input));
 
-		if (db.search_user(input)) {
+		if (user.cart.dbManager.search_user(input)) {
 			user.set_name(input);
 			user.get_cart();
 			break;
@@ -64,8 +64,8 @@ int main() {
 				//print househould items
 				if (!strcmp(input, "1")) {
 					std::cout << "Household" << std::endl << "-------------" << endl;
-					for (int i = 0; i < db.household_table.size(); i++) {
-						std::cout << i+1 << ". " << db.household_table[i].name << std::endl;
+					for (int i = 0; i < user.cart.dbManager.household_table.size(); i++) {
+						std::cout << i+1 << ". " << user.cart.dbManager.household_table[i].name << std::endl;
 					}//end for loop
 					while (true) {
 						int item;
@@ -75,18 +75,18 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							if (index > db.household_table.size()) {
+							if (index > user.cart.dbManager.household_table.size()) {
 								std::cout << "Invalid Item Number" << std::endl;
 								break;
 							}
 
-							db.household_table[index-1].print_details();
+							user.cart.dbManager.household_table[index-1].print_details();
 							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
 							int quantity = stoi(input);
 
-							user.add_to_cart(db.household_table[index-1], quantity);
+							user.add_to_cart(user.cart.dbManager.household_table[index-1], quantity);
 							break;
 
 						}//end if/else
@@ -98,8 +98,8 @@ int main() {
 				//print toy items
 				else if (!strcmp(input, "2")) {
 					std::cout << "Toys" << std::endl << "-------------" << endl;
-					for (int i = 0; i < db.toy_table.size(); i++) {
-						std::cout << i+1 << ". " << db.toy_table[i].name << std::endl;
+					for (int i = 0; i < user.cart.dbManager.toy_table.size(); i++) {
+						std::cout << i+1 << ". " << user.cart.dbManager.toy_table[i].name << std::endl;
 					}//end for loop
 					while (true) {
 						int item;
@@ -109,18 +109,18 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							if (index > db.toy_table.size()) {
+							if (index > user.cart.dbManager.toy_table.size()) {
 								std::cout << "Invalid Item Number" << std::endl;
 								break;
 							}
 
-							db.toy_table[index-1].print_details();
+							user.cart.dbManager.toy_table[index-1].print_details();
 							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
 
 							int quantity = stoi(input);
-							user.add_to_cart(db.toy_table[index-1], quantity);
+							user.add_to_cart(user.cart.dbManager.toy_table[index-1], quantity);
 							break;
 						}//end if/else
 					}//end true while
@@ -129,8 +129,8 @@ int main() {
 				//print electric items
 				else if (!strcmp(input, "3")) {
 					std::cout << "Electronics" << std::endl << "-------------" << endl;
-					for (int i = 0; i < db.electronic_table.size(); i++) {
-						std::cout << i+1 << ". " << db.electronic_table[i].name << std::endl;
+					for (int i = 0; i < user.cart.dbManager.electronic_table.size(); i++) {
+						std::cout << i+1 << ". " << user.cart.dbManager.electronic_table[i].name << std::endl;
 					}//end for loop
 					while (true) {
 						int item;
@@ -140,18 +140,18 @@ int main() {
 						if (!strcmp(input, "back")) { break; }
 						else {
 							int index = stoi(input);
-							if (index > db.electronic_table.size()) {
+							if (index > user.cart.dbManager.electronic_table.size()) {
 								std::cout << "Invalid Item Number" << std::endl;
 								break;
 							}
 
-							db.electronic_table[index-1].print_details();
+							user.cart.dbManager.electronic_table[index-1].print_details();
 							std::cout << "Pick Quantity - (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
 
 							int quantity = stoi(input);
-							user.add_to_cart(db.electronic_table[index-1], quantity);
+							user.add_to_cart(user.cart.dbManager.electronic_table[index-1], quantity);
 							break;
 						}//end if/else
 					}//end true while
@@ -160,8 +160,8 @@ int main() {
 				//print book items
 				else if (!strcmp(input, "4")) {
 					std::cout << "Books" << std::endl << "-------------" << endl;
-					for (int i = 0; i < db.book_table.size(); i++) {
-						std::cout << i+1 << ". " << db.book_table[i].name << std::endl;
+					for (int i = 0; i < user.cart.dbManager.book_table.size(); i++) {
+						std::cout << i+1 << ". " << user.cart.dbManager.book_table[i].name << std::endl;
 					}//end for loop
 					while (true) {
 						int item;
@@ -172,18 +172,18 @@ int main() {
 						else {
 							int index = stoi(input);
 
-							if (index > db.book_table.size()) {
+							if (index > user.cart.dbManager.book_table.size()) {
 								std::cout << "Invalid Item Number" << std::endl;
 								break;
 							}
 
-							db.book_table[index-1].print_details();
+							user.cart.dbManager.book_table[index-1].print_details();
 							std::cout << "Pick Quantity (or 'back') " << std::endl;
 							cin.getline(input, sizeof(input));
 							if (!strcmp(input, "back")) { break; }
 
 							int quantity = stoi(input);
-							user.add_to_cart(db.book_table[index-1], quantity);
+							user.add_to_cart(user.cart.dbManager.book_table[index-1], quantity);
 							break;
 						}//end if/else
 					}//end true while
@@ -301,6 +301,6 @@ int main() {
 	}//end operational-loop
 
 	std::cout << "Ending Program" << std::endl;
-	db.dumpDB();
+	user.cart.dbManager.dumpDB();
 	return 0;
 }
