@@ -283,6 +283,6 @@ int main() {
 	}//end operational-loop
 
 	std::cout << "Ending Program" << std::endl;
-
+	db.dumpDB();
 	return 0;
 }

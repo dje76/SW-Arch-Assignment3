@@ -41,9 +41,11 @@ public:
 	void search_item(string value);
 	void print(string type);
 	void print_all();
-	void updateCartInDatabase(vector<Item> items,vector<int> quantity);
+	void updateCartInDatabase(vector<Item> items,vector<int> quantity, string user);
 	void addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment);
 	std::pair <vector<Item>,vector<int>> getCartFromDatabase(vector<Item> items,vector<int> quantity, string user);
+	void writeDB(vector<string> tokens, ofstream &file);
+	void dumpDB();
 };
 
 Database::Database(void){}
@@ -192,8 +194,42 @@ void Database::print_all() {
 	}
 }
 
-void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity){
+void Database::updateCartInDatabase(vector<Item> items,vector<int> quantity, string user){
+	ifstream cartInfile(directory + "/cart.txt");
+	// A temporary string variable for parsing purposes.
+	string line;
+	char delimiter = ',';
+	vector<string> lines;
+	string cart_line;
+	string new_cart;
+	int index=0;
+	int size=0;
 	
+	// Initialize items list from file.
+	while (getline(cartInfile, line)) {
+		vector <string> parts;
+		split(line, delimiter, parts);
+		if(parts[0] == user){
+			cart_line = line;
+			index = size;
+		}
+		lines.push_back(line);
+		size++;
+	}
+	cartInfile.close();
+	
+	new_cart = user;
+	for(int i=0;i<items.size();i++){
+		new_cart = new_cart + "," + items[i].name + "," + std::to_string(quantity[i]);
+	}
+	lines[index] = new_cart;
+	
+	remove("Files/cart.txt");
+	ofstream cartOutfile(directory + "/cart.txt");
+	for(int i=0;i<size;i++){
+		cartOutfile << lines[i] << endl;
+	}
+	cartOutfile.close();
 }
 
 void Database::addOrderToDatabase(string user, vector<Item> items,vector<int> quantity,float total,string address,string payment){
@@ -218,8 +254,8 @@ std::pair <vector<Item>,vector<int>> Database::getCartFromDatabase(vector<Item> 
 	}
 	int cont = 0;
 	for(int i=1;i<cart.size();i+=2){
+		cont = 0;
 		for(int j=0;j<household_table.size();j++){
-			cout << household_table[j].name <<endl;
 			if(cart[i] == household_table[j].name){
 				items_in_cart.push_back(household_table[j]);
 				cont++;
@@ -268,6 +304,7 @@ std::pair <vector<Item>,vector<int>> Database::getCartFromDatabase(vector<Item> 
 	items = items_in_cart;
 	quantity = quantity_in_cart;
 	std::pair <vector<Item>,vector<int>> product(items,quantity);
+	cartInfile.close();
 	return product;
 }
 
@@ -284,5 +321,38 @@ vector<vector<string>> Database::get_order_history(string user){
 		split(line, delimiter, parts);
 		history.push_back(parts);
 	}
+	orderInfile.close();
 	return history;
 }
+
+// Add this at the very end. Outside main.
+void Database::writeDB(vector<string> tokens, ofstream &file) {
+	for (int i = 0; i < tokens.size(); i++) {
+		if (i != tokens.size() - 1)
+		file << tokens[i] << ',';
+	else
+		file << tokens[i] << endl;
+	}//end for loop
+}//end write function
+
+void Database::dumpDB() {
+	remove("Files/items.txt");
+	ofstream outfile("Files/items.txt");
+
+	for (auto it : household_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+	for (auto it : book_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+	for (auto it : toy_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+	for (auto it : electronic_table) {
+		vector<string> tokens = it.get_details();
+		writeDB(tokens, outfile);
+	}
+}//end dump

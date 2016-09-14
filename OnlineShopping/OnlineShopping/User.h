@@ -40,7 +40,7 @@ void User::get_cart(){
 //stores the order in the database and empties the cart
 void User::purchase_items(){
 	dbManager.addOrderToDatabase(name, cart.items, cart.quantity, cart.total, address, payment);
-	cart.clear();
+	cart.clear(name);
 }
 
 void User::update_address(string newAddress){
@@ -52,11 +52,11 @@ void User::update_payment(string newPayment){
 }
 
 void User::add_to_cart(Item item, int num){
-	cart.addToCart(item, num);
+	cart.addToCart(item, num, name);
 }
 
 void User::remove_from_cart(Item item, int num){
-	cart.removeFromCart(item, num);
+	cart.removeFromCart(item, num, name);
 }
 
 void User::view_history(){

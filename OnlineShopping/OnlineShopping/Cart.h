@@ -9,10 +9,10 @@ public:
 	float total;
 	
 	Cart(void);
-	void addToCart(Item item, int num);
+	void addToCart(Item item, int num, string user);
 	void set_cart(string user);
-	void removeFromCart(Item item, int num);
-	void clear();
+	void removeFromCart(Item item, int num, string user);
+	void clear(string user);
 };
 
 //Constructor
@@ -31,7 +31,7 @@ void Cart::set_cart(string user){
 }
 
 //adds an item to the cart
-void Cart::addToCart(Item item, int num){
+void Cart::addToCart(Item item, int num, string user){
 	int inList=0;
 	for(unsigned int i=0;i<items.size();i++){
 		if(items[i].name==item.name){
@@ -44,12 +44,12 @@ void Cart::addToCart(Item item, int num){
 		items.push_back(item);
 		quantity.push_back(num);
 	}
-	dbManager.updateCartInDatabase(items, quantity);
+	dbManager.updateCartInDatabase(items, quantity, user);
 	total+= item.price*num;
 }
 
 //removes the selected item from the cart
-void Cart::removeFromCart(Item item, int num){
+void Cart::removeFromCart(Item item, int num, string user){
 	for(unsigned int i=0;i<items.size();i++){
 		if(items[i].name==item.name){
 			if(quantity[i]>num){
@@ -64,13 +64,14 @@ void Cart::removeFromCart(Item item, int num){
 			break;
 		}
 	}
-	dbManager.updateCartInDatabase(items, quantity);
+	dbManager.updateCartInDatabase(items, quantity, user);
 }
 
-void Cart::clear(){
+void Cart::clear(string user){
 	items.clear();
 	quantity.clear();
-	dbManager.updateCartInDatabase(items, quantity);
+	total=0.00;
+	dbManager.updateCartInDatabase(items, quantity, user);
 }
 
 //the Order class, it inharits from Cart
