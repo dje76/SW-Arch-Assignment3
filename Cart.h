@@ -1,6 +1,18 @@
 #pragma once
+/*
+Object Oriented Principles:
+----------------------------
+Cart class is our base class
+The Order Class inherites from Cart
+	An order is the same as the Cart but it includes an address and payment information.
 
-//the Cart class
+The cart class also includes an object from the Database Class.
+	This is an example coupling between components. The cart needs Database Manager
+	object in order to used its methods and interact with the data base.
+
+	This also exemplifies the concept of Dependence. The Cart class needs the Database object.
+
+*/
 class Cart {
 public:
 	Database dbManager;
