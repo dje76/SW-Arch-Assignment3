@@ -1,7 +1,15 @@
 #pragma once
 
 /*
-The different item classes inherit from the item base class.
+Item
+
+The base (or parent) class for all item inherited classes.
+The Item class stores standard data for all items in the database.
+Its attributes include:
+	Name - provides a name for a given item
+	Price - the current selling price for an item
+	Quantity - displays the current stock count
+	Description - provides information regarding the item
 
 The Item class is used by all other classes and is used to store data about items.
 All other classes have a dependency on the item classes.
@@ -50,6 +58,16 @@ vector<string> Item::get_details() {
 	return tokens;
 }
 
+/*
+Household
+
+The Household item inherits properties from the Item class with additional properties.
+Included Properties:
+	Room - provides information on the recommended room
+	Size - provides the size of the item (small, large, etc.)
+	Season - provides information regarding exclusive seasonal purchases
+*/
+
 class Household : public Item {
 	// "name", price, quantity, "description", "room", "size", "season"
 public:
@@ -96,6 +114,16 @@ vector<string> Household::get_details() {
 	tokens.push_back(this->season);
 	return tokens;
 }
+
+/*
+Book
+
+The Book item inherits properties from the Item class with additional properties.
+Included Properties:
+	Author - provides the name of the author(s) that wrote the book
+	Genre - provides the style or type of book
+	ISBN - provides a lookup number for a book (unique)
+*/
 
 class Book : public Item {
 	// "name", price, quantity, "description", "author", "genre", "isbn"
@@ -144,6 +172,14 @@ vector<string> Book::get_details() {
 	return tokens;
 }
 
+/*
+Toy
+
+The Toy item inherits properties from the Item class with additional properties.
+Included Properties:
+	Brand - provides information regarding the brand/manufacturer
+	Age - provides a recommended minimum age for use
+*/
 class Toy : public Item {
 	// "name", price, quantity, "description", "brand", "age"
 public:
@@ -186,6 +222,15 @@ vector<string> Toy::get_details() {
 	tokens.push_back(to_string(this->age));
 	return tokens;
 }
+
+/*
+Electronic
+
+The Electronic item inherits properties from the Item class with additional properties.
+Included Properties:
+	Manufacturer - provides information on the manufacturer
+	Category - provides information on the type of electronic (wearable, hand-held, etc.)
+*/
 
 class Electronic : public Item {
 	// "name", price, quantity, "description", "manufacturer", "category"
